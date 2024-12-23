@@ -1,6 +1,7 @@
 // @Author Lin Ya
 // @Email xxbbb@vip.qq.com
 #include "HttpData.h"
+#include <sys/socket.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -276,6 +277,7 @@ void HttpData::handleWrite() {
       error_ = true;
     }
     if (outBuffer_.size() > 0) events_ |= EPOLLOUT;
+    // else shutdown(fd_, SHUT_WR); // [NOTE]: uncomment this line when doing WebBench test with "Connection: close"
   }
 }
 
